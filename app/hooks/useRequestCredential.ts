@@ -72,6 +72,10 @@ export function useRequestCredential(routeParams?: Params): { credential: Creden
       console.log('Received files:', files);
       const [file] = files;
 
+      if(!file.text || file.text === 'Add credential') {
+        return;
+      }
+
       // console.log('url:', url);
       const encoded = 'VP1-' + file.text.split('VP1-')[1];
 
