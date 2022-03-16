@@ -53,11 +53,6 @@ function Settings({ navigation }: SettingsProps): JSX.Element {
     dispatch(reset());
   }
 
-  async function addDevCredential() {
-    await CredentialRecord.addCredential(CredentialRecord.rawFrom(mockCredential));
-    dispatch(getAllCredentials());
-  }
-
   function lockWallet() {
     AccessibilityInfo.announceForAccessibility('Locked Wallet');
     dispatch(lock());
@@ -72,10 +67,6 @@ function Settings({ navigation }: SettingsProps): JSX.Element {
         <SettingsItem title="Reset wallet" onPress={() => setResetModalOpen(true)} />
         <SettingsItem title="About" onPress={() => navigation.navigate('About')} />
         <SettingsItem title="Sign out" onPress={lockWallet} />
-        <SettingsItem
-          title="Add credential (dev)"
-          onPress={addDevCredential}
-        />
       </View>
       <ConfirmModal
         open={resetModalOpen}
@@ -237,13 +228,13 @@ function About({ navigation }: AboutProps): JSX.Element {
           More information at&nbsp;
           <Text
             style={styles.link}
-            onPress={() => Linking.openURL('https://eduwallet.app')}
+            onPress={() => Linking.openURL('https://lcw.app')}
           >
-            https://eduwallet.app
+            https://lcw.app
           </Text>.
         </Text>
         <Text style={styles.paragraphCenter}>
-          Copyright 2021 Massachusetts Institute of Technology
+          Copyright 2021-2022 Massachusetts Institute of Technology
         </Text>
         <Text style={styles.paragraphCenter}>
           v{version} - Build {buildNumber}
