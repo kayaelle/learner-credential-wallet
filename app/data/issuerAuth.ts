@@ -50,5 +50,15 @@ export const issuerAuthRegistry: RegistryRaw<IssuerAuthEntry> = {
       scopes: ['https://mcmasteresol.onmicrosoft.com/verifiable_credentials/Credentials.Issue'],
       redirectUrl: 'dccrequest://oauth',
     },
+    'https://oauth.mocklab.io': {
+      issuer: 'http://localhost:5000',
+      clientId: 'demo',
+      redirectUrl: 'dccrequest://oauth',
+      scopes: ['openid'],
+      serviceConfiguration: {
+        authorizationEndpoint: 'https://oauth.mocklab.io/oauth/authorize',
+        tokenEndpoint: 'https://oauth.mocklab.io/oauth/token',
+      },
+    },
   },
 };
