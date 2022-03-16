@@ -43,5 +43,10 @@ export const issuerDidRegistry: RegistryRaw<IssuerDidEntry> = {
       location: 'Atlanta, GA, USA',
       url: 'https://c21u.gatech.edu',
     },
+    'did:key:z6Mknx219amLmnD2dPDg4iDRsgERWhj2SoQxefv6XutdeQRh': {
+      name: 'Badgr',
+      location: 'Eugene, OR, USA',
+      url: 'https://badgr.com',
+    },
   },
 };
