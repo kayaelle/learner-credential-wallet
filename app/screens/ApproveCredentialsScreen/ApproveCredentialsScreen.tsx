@@ -42,9 +42,16 @@ export default function ApproveCredentialsScreen({ navigation }: ApproveCredenti
   function renderItem({ item: pendingCredential }: RenderItemProps) {
     const { credential } = pendingCredential;
     const { credentialSubject, issuer } = credential;
+
+    console.log("CREDENTIAL WHOLE: "+JSON.stringify(credential, null, 2));
+
+
+    console.log("CREDENTIAL ISSUER: "+JSON.stringify(issuer, null, 2));
+
     const title = credentialSubject.hasCredential?.name ?? '';
     const issuerName = (typeof issuer === 'string' ? '' : issuer?.name) ?? '';
-    const issuerImage = typeof issuer === 'string' ? null : issuer?.image;
+    //const issuerImage = typeof issuer === 'string' ? null : issuer?.image;
+    const badgeImage = credentialSubject.hasCredential?.image ?? '';
     const onSelect = () => navigation.navigate(
       'ApproveCredentialScreen',
       {
@@ -54,9 +61,9 @@ export default function ApproveCredentialsScreen({ navigation }: ApproveCredenti
 
     return (
       <CredentialItem
+        image={badgeImage}
         title={title}
         subtitle={issuerName}
-        image={issuerImage}
         onSelect={onSelect}
         bottomElement={<ApprovalControls pendingCredential={pendingCredential} />}
         chevron

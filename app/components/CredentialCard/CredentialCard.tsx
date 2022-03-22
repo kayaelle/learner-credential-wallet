@@ -18,10 +18,14 @@ export default function CredentialCard({ rawCredentialRecord }: CredentialCardPr
   const { credential } = rawCredentialRecord;
   const { credentialSubject, issuer, issuanceDate } = credential;
 
+  const badgeImage = credentialSubject.hasCredential?.image ?? '';
   const title = credentialSubject.hasCredential?.name ?? '';
   const description = credentialSubject.hasCredential?.description ?? '';
+  const criteria = credentialSubject.hasCredential?.criteria.narrative ?? '';
   const formattedIssuanceDate = moment(issuanceDate).format(DATE_FORMAT);
   const subjectName = credentialSubject.name;
+ //For open badges demo, email address is the recipient identity and not hashed
+  const recipientEmail = credentialSubject.recipient?.identity;
   const numberOfCredits = credentialSubject.hasCredential?.awardedOnCompletionOf?.numberOfCredits?.value ?? '';
 
   const { startDate, endDate } = credentialSubject.hasCredential?.awardedOnCompletionOf ?? {};
@@ -51,6 +55,15 @@ export default function CredentialCard({ rawCredentialRecord }: CredentialCardPr
   return (
     <View style={styles.credentialContainer}>
       <View style={styles.dataContainer}>
+      {badgeImage ? (
+      <Image
+        source={{ uri: badgeImage }}
+        style={styles.dataImage}
+        accessible={true}
+        accessibilityLabel={title}
+        accessibilityRole="image"
+      />
+      ) : null}
         <Text style={styles.header} accessibilityRole="header">{title}</Text>
         <Text style={styles.dataLabel}>Issuer</Text>
         <View style={styles.flexRow}>
@@ -82,10 +95,18 @@ export default function CredentialCard({ rawCredentialRecord }: CredentialCardPr
         <Text style={styles.dataLabel}>Issuance Date</Text>
         <Text style={styles.dataValue}>{formattedIssuanceDate}</Text>
       </View>
+      {recipientEmail ? (
+      <View style={styles.dataContainer}>
+        <Text style={styles.dataLabel}>Recipient Email</Text>
+        <Text style={styles.dataValue}>{recipientEmail}</Text>
+      </View>
+      ) : null}
+      {subjectName ? (
       <View style={styles.dataContainer}>
         <Text style={styles.dataLabel}>Subject Name</Text>
         <Text style={styles.dataValue}>{subjectName}</Text>
       </View>
+      ) : null}
       {numberOfCredits ? (
         <View style={styles.dataContainer}>
           <Text style={styles.dataLabel}>Number of Credits</Text>
@@ -110,6 +131,12 @@ export default function CredentialCard({ rawCredentialRecord }: CredentialCardPr
         <Text style={styles.dataLabel}>Description</Text>
         <Text style={styles.dataValue}>{description}</Text>
       </View>
+      {criteria ? (
+      <View style={styles.dataContainer}>
+        <Text style={styles.dataLabel}>Criteria</Text>
+        <Text style={styles.dataValue}>{criteria}</Text>
+      </View>
+      ) : null}
     </View>
   );
 }
